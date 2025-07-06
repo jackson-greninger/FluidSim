@@ -149,14 +149,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 6620961838355442120, guid: b51df4f91e3f3b54d989ff52cad3af3a, type: 3}
-  numParticles: 345
-  boundaryLeft: -5
-  boundaryRight: 5
+  mass: 1
+  particleRadius: 0.15
+  numParticles: 200
+  collisionFactor: 0.5
+  smoothingRadius: 0.75
+  gravity: {x: 0, y: -9.81}
+  boundaryLeft: -10
+  boundaryRight: 10
   boundaryBottom: -5
   boundaryTop: 5
-  particleSize: 0.17
-  particleSpacing: 0.01
-  collisionFactor: 0.5
+  particleProperties: []
+  positions: []
+  velocities: []
+  densities: []
 --- !u!4 &102967449
 Transform:
   m_ObjectHideFlags: 0

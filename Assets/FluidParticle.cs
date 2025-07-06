@@ -3,83 +3,72 @@ using UnityEngine;
 public class FluidParticle
 {
 
-    public Vector2 position;
-    public Vector2 velocity;
-    public GameObject particle;
-    public float radius = 0.25f;
+    public Vector2 Position;
+    public Vector2 Velocity;
+    public float Mass;
+    public float Radius = 0.25f;
 
-    public FluidParticle(Vector2 startPos, GameObject prefab, float particleRadius)
+    private GameObject _gameobject;
+
+    public FluidParticle(Vector2 startPos, GameObject prefab, float radius, float mass)
     {
-        position = startPos;
-        velocity = Vector2.zero;
-        radius = particleRadius;
+        Position = startPos;
+        Velocity = Vector2.zero;
+        Radius = radius;
+        Mass = mass;
 
-        particle = Object.Instantiate(prefab, new Vector2(startPos.x, startPos.y), Quaternion.identity);
-
-        float defaultSize = particle.GetComponent<SpriteRenderer>().bounds.size.x / particle.transform.localScale.x;
-        float targetScale = (radius * 2f) / defaultSize;
-        particle.transform.localScale = new Vector3(targetScale, targetScale, 1f);
+        _gameobject = Object.Instantiate(prefab, startPos, Quaternion.identity);
+        UpdateScale();
     }
 
     public void UpdateParticle(float deltaTime)
     {
-        velocity += new Vector2(0, -9.81f) * deltaTime;
-        position += velocity * deltaTime;
-        particle.transform.position = position;
+        _gameobject.transform.position = Position;
     }
 
     public void ResolveCollisions(float left, float right, float top, float bottom, float collisionFactor)
     {
         // check the x boundaries
-        if (position.x - radius < left)
+        if (Position.x - Radius < left)
         {
-            position.x = left + radius;
-            velocity.x = -velocity.x * collisionFactor;
+            Position.x = left + Radius;
+            Velocity.x = -Velocity.x * collisionFactor;
         }
-        else if (position.x + radius > right)
+        else if (Position.x + Radius > right)
         {
-            position.x = right - radius;
-            velocity.x = -velocity.x * collisionFactor;
+            Position.x = right - Radius;
+            Velocity.x = -Velocity.x * collisionFactor;
         }
 
         // check the y boundaries
-        if (position.y - radius < bottom)
+        if (Position.y - Radius < bottom)
         {
-            position.y = bottom + radius;
-            velocity.y = -velocity.y * collisionFactor;
+            Position.y = bottom + Radius;
+            Velocity.y = -Velocity.y * collisionFactor;
         }
-        else if (position.y + radius > top)
+        else if (Position.y + Radius > top)
         {
-            position.y = top - radius;
-            velocity.y = -velocity.y * collisionFactor;
+            Position.y = top - Radius;
+            Velocity.y = -Velocity.y * collisionFactor;
         }
     }
 
     public void SetRadius(float newRadius)
     {
-        radius = newRadius;
-        float defaultSize = particle.GetComponent<SpriteRenderer>().bounds.size.x / particle.transform.localScale.x;
-        float targetScale = (radius * 2f) / defaultSize;
-        particle.transform.localScale = new Vector3(targetScale, targetScale, 1f);
+        Radius = newRadius;
+        UpdateScale();
     }
 
-    public float CalculateDensity(List<FluidParticle> neighbors, float h)
+    private void UpdateScale()
     {
-        float density = 0;
-        const float mass = 1;
-
-        foreach (var neighbor in neighbors)
+        var sr = _gameobject.GetComponent<SpriteRenderer>();
+        if (sr == null)
         {
-            float r = Vector2.Distance(this.position, neighbor.position);
-            density += neighbor.mass * FluidMath.SmoothingKernel(r, h);
+            return;
         }
-        return density;
+        float defaultSize = sr.bounds.size.x / _gameobject.transform.localScale.x;
+        float targetScale = (Radius * 2f) / defaultSize;
+        _gameobject.transform.localScale = new Vector3(targetScale, targetScale, 1f);
     }
 
-    float calculateProperty(Vector2 samplePoint)
-    {
-        float property = 0;
-
-        for (int i = 0; i < )
-    }
 }
