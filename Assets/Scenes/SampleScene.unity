@@ -150,8 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 6620961838355442120, guid: b51df4f91e3f3b54d989ff52cad3af3a, type: 3}
   mass: 1
-  particleRadius: 0.15
-  numParticles: 200
+  particleRadius: 0.075
+  numParticles: 1200
+  points: []
   collisionFactor: 0.5
   smoothingRadius: 0.75
   gravity: {x: 0, y: -9.81}

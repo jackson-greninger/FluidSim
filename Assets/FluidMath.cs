@@ -3,23 +3,29 @@ using UnityEngine;
 public static class FluidMath
 {
     public static float targetDensity = 0.5f;
-    public static float pressureMultiplier = 0.5f;
+    public static float pressureMultiplier = 10f;
     
     public static float SmoothingKernel(float radius, float dst)
     {
-        float volume = Mathf.PI * Mathf.Pow(radius, 8) / 4; // used to calculate the volume the density over the radius
-        // square the radius and distance to smooth out the function
-        float value = Mathf.Max(0f, radius * radius - dst * dst);
-        // cube the kernel value to smooth out corners
-        return value * value * value / volume;
+        if (dst >= radius) return 0;
+
+        // this is our function for the influence of a particle given its smoothing radius
+        float volume = Mathf.PI * Mathf.Pow(radius, 4) / 6;
+        return (radius - dst) * (radius - dst) / volume;
     }
 
     public static float SmoothingDerivative(float radius, float dst)
     {
-        if (dst >= radius) return 0;
-        float f = radius * radius - dst * dst;
-        float scale = -24 / (Mathf.PI * Mathf.Pow(radius, 8));
-        return scale * dst * f * f;
+        if (dst <= 0f || dst >= radius) return 0f;
+        float coef = -45f / (Mathf.PI * Mathf.Pow(radius, 6));
+        return coef * (radius - dst) * (radius - dst);
+    }
+
+    public static float CalculateSharedPressure(float densityA, float densityB)
+    {
+        float pressureA = DensityToPressure(densityA);
+        float pressureB = DensityToPressure(densityB);
+        return (pressureA + pressureB) / 2;
     }
 
     public static float DensityToPressure(float density)

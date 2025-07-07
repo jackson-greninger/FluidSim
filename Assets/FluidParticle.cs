@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class FluidParticle
 {
-
     public Vector2 Position;
     public Vector2 Velocity;
     public float Mass;
     public float Radius = 0.25f;
-
-    private GameObject _gameobject;
+    public GameObject _gameobject;
 
     public FluidParticle(Vector2 startPos, GameObject prefab, float radius, float mass)
     {
