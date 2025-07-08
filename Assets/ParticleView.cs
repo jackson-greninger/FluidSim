@@ -19,7 +19,7 @@ public class ParticleView : MonoBehaviour {
     // 2) compute t = speed/maxSpeed, clamped to [0,1]
     float speed = vel.magnitude;
     float t = 0f;
-    t = Mathf.Clamp01(speed/3f);  
+    t = Mathf.Clamp01(speed/5f);  
     
     Color col = speedGradient.Evaluate(t);
 

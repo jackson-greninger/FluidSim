@@ -2,9 +2,9 @@ using UnityEngine;
 
 public static class FluidMath
 {
-    public static float targetDensity = 0.5f;
+    public static float targetDensity = 28f;
     public static float pressureMultiplier = 10f;
-    
+
     public static float SmoothingKernel(float radius, float dst)
     {
         if (dst >= radius) return 0;

@@ -148,16 +148,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401133f70ca7c7c468456a03e39cafcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetDensity: 0.5
+  pressureMultiplier: 10
   particlePrefab: {fileID: 6620961838355442120, guid: b51df4f91e3f3b54d989ff52cad3af3a, type: 3}
   mass: 1
-  particleRadius: 0.075
+  particleRadius: 0.06
   numParticles: 1200
   points: []
   collisionFactor: 0.5
-  smoothingRadius: 0.75
-  gravity: {x: 0, y: -9.81}
-  boundaryLeft: -10
-  boundaryRight: 10
+  smoothingRadius: 0.35
+  gravity: {x: 0, y: 0}
+  boundaryLeft: -7
+  boundaryRight: 7
   boundaryBottom: -5
   boundaryTop: 5
   particleProperties: []
